@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Portofolio pribadi Ferry - Siswa SMA yang kreatif dan bersemangat di Jakarta">
+    <meta name="keywords" content="portofolio, web design, siswa SMA, Jakarta, kreatif">
+    <meta name="author" content="Ferry">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Mobile & PWA Meta Tags -->
+    <meta name="theme-color" content="#4aa3df" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#74b9ff" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Ferry's Portfolio">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portofolio Ferry - Siswa SMA Kreatif">
+    <meta property="og:description" content="Portofolio pribadi Ferry - Pelajar yang suka ngoding, gaming, dan olahraga">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+    
+    <title>Portofolio Pribadi | Siswa SMA Kreatif</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark')}</script>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="logo">Ferry's Space</div>
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="ph ph-list"></i>
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#hobbies">Hobi</a></li>
+                <li><a href="#achievements">Prestasi</a></li>
+                <li><a href="#gallery">Galeri</a></li>
+                <li><a href="#film">Film</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Ganti Mode">
+            <i class="ph ph-moon" id="theme-icon"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container hero-content">
+            <div class="avatar-container">
+                <img src="assets/images/hero/avatar.jpg" alt="Foto Profil" class="avatar" loading="lazy">
+            </div>
+            <p class="hero-tagline">Student | Gamer | Dreamer</p>
+            <h1 class="hero-title">Halo, aku <span>Ferry!</span></h1>
+            <p style="margin-bottom: 30px; font-size: 1.1rem; color: var(--text-light);">
+                Seorang pelajar SMA yang suka ngoding, main game, dan mengejar mimpi—satu finish line dalam satu waktu.
+            </p>
+            <a href="#contact" class="cta-btn">Ayo Kenalan! <i class="ph ph-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- About Me -->
+    <section id="about" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Tentang Aku</h2>
+            <div class="about-card">
+                <div class="about-image">
+                    <img src="assets/images/about/handsome.jpg" alt="Ferry" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h3 class="handwritten">Siswa SMK dengan semangat tinggi!</h3>
+                    <p>Hai! Aku Ferry, Aku dari SMK Bina Putra Mandiri Parung Panjang, Kab.Bogor, jurusan RPL. Aku suka belajar pemrograman, editing, dan mencoba teknologi baru. </p>
+                    <p>Terus belajar, terus berkembang, dan jangan pernah berhenti mencoba hal baru.</p>
+                    <div class="fun-fact">
+                        <i class="ph ph-lightning"></i> Fun Fact: 10 + 6 = 17
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Hobiku</h2>
+            <div class="hobbies-grid">
+                <div class="hobby-card">
+                    <div class="hobby-img">
+                        <img src="assets/images/hobbies/gaming.jpg" alt="Gaming" loading="lazy">
+                    </div>
+                    <div class="hobby-icon"><i class="ph ph-game-controller"></i></div>
+                    <h3 class="hobby-title">Gaming</h3>
+                    <p class="hobby-desc">game ini ga pernah lepas dari gw -_-</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-img">
+                        <img src="assets/images/hobbies/lari.jpg" alt="Lari & Olahraga" loading="lazy">
+                    </div>
+                    <div class="hobby-icon"><i class="ph ph-sneaker-move"></i></div>
+                    <h3 class="hobby-title">Lari & Olahraga</h3>
+                    <p class="hobby-desc">lari setiap setiap sore mencoba melampaui limit.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-img">
+                        <img src="assets/images/hobbies/jalan.jpg" alt="Jalan-Jalan" loading="lazy">
+                    </div>
+                    <div class="hobby-icon"><i class="ph ph-airplane-tilt"></i></div>
+                    <h3 class="hobby-title">Jalan-Jalan</h3>
+                    <p class="hobby-desc">Suka eksplor tempat baru di Indonesia. Dari pantai Bali sampai kebun teh Jawa Barat!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Film Favorit - Polaroid Vintage -->
+    <section id="film" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Film Favorit 🎬</h2>
+            <div class="film-grid-polaroid">
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/films/getout.jpg" alt="Get Out" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Get Out</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">Mind blowing ni film.</p>
+                        <span class="film-year">2017</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/films/truman.jpg" alt="The Truman Show" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 The Truman Show</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">gimana caranya buat studio sebesar itu.</p>
+                        <span class="film-year">1998</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/films/billionaire.jpg" alt="Billionaire" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 The shawshank redemption</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">epic coy</p>
+                        <span class="film-year">1994</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/films/interstellar.jpg" alt="Interstellar" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Interstellar</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">damn</p>
+                        <span class="film-year">2014</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/films/toystory.jpg" alt="Toy Story" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Forrest gump</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">run forest run.</p>
+                        <span class="film-year">1995</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anime Favorites -->
+    <section id="anime" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Anime Favorit 🎌</h2>
+            <div class="film-grid-polaroid">
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/anime/naruto.jpg" alt="Naruto" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Naruto</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">Goat.</p>
+                        <span class="film-year">2002</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/anime/aot.jpg" alt="Attack on Titan" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Attack on Titan</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">suka banget sama misterinya.</p>
+                        <span class="film-year">2013</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/anime/fma.jpg" alt="Fullmetal Alchemist" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Fullmetal Alchemist</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">Dua saudara mencari Batu Bertuah demi mengembalikan tubuh mereka.</p>
+                        <span class="film-year">2003</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/anime/silentvoice.jpg" alt="A Silent Voice" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 A Silent Voice</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">ngigok</p>
+                        <span class="film-year">2016</span>
+                    </div>
+                </div>
+                <div class="film-polaroid">
+                    <div class="film-polaroid-img">
+                        <img src="assets/images/anime/oddtaxi.jpg" alt="Odd Taxi" loading="lazy">
+                    </div>
+                    <div class="film-polaroid-caption">
+                        <h3 class="film-polaroid-title">🎬 Odd Taxi</h3>
+                        <div class="film-polaroid-divider"></div>
+                        <p class="film-polaroid-desc">plot twist didalam plot twist.</p>
+                        <span class="film-year">2021</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Pencapaian</h2>
+            <div class="achievement-list">
+                <div class="achievement-item">
+                    <div class="badge-icon"><i class="ph ph-medal"></i></div>
+                    <div class="ach-info">
+                        <h4>Juara M8 World Championship</h4>
+                        <p>indonesia juara</p>
+                        <span>2028</span>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <div class="badge-icon"><i class="ph ph-trophy"></i></div>
+                    <div class="ach-info">
+                        <h4>Tidur dibawah jam 10</h4>
+                        <p>cuman gw yang bisa</p>
+                        <span>2021</span>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <div class="badge-icon"><i class="ph ph-certificate"></i></div>
+                    <div class="ach-info">
+                        <h4>Bisa pasang gas</h4>
+                        <p>nyaris meledak</p>
+                        <span>2019</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Memories -->
+    <section id="gallery" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Memori</h2>
+            <div class="gallery-grid">
+                <div class="polaroid">
+                    <img src="assets/images/gallery/Rumah dinas dpr.jpg" alt="Rumah Dinas" loading="lazy">
+                    <div class="polaroid-caption">Rumah Dinas DPR</div>
+                </div>
+                <div class="polaroid">
+                    <img src="assets/images/gallery/study tour.jpg" alt="Study Tour" loading="lazy">
+                    <div class="polaroid-caption">Study Tour</div>
+                </div>
+                <div class="polaroid">
+                    <img src="assets/images/gallery/candi Borobudur.jpg" alt="Candi Borobudur" loading="lazy">
+                    <div class="polaroid-caption">Candi Borobudur</div>
+                </div>
+                <div class="polaroid">
+                    <img src="assets/images/gallery/bunga.jpg" alt="Bunga" loading="lazy">
+                    <div class="polaroid-caption">Bunga</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Favorite Things -->
+    <section id="favorites" class="reveal">
+        <div class="container">
+            <h2 class="handwritten" style="font-size: 2rem; margin-bottom: 20px;">Favorite Things</h2>
+            <div class="fav-container">
+                <div class="fav-chip"><i class="ph ph-game-controller"></i> Mobile Legends</div>
+                <div class="fav-chip"><i class="ph ph-flame"></i> Bakpia</div>
+                <div class="fav-chip"><i class="ph ph-music-notes"></i> Musik</div>
+                <div class="fav-chip"><i class="ph ph-drop"></i> Air Putih</div>
+                <div class="fav-chip"><i class="ph ph-book"></i> Belajar</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="reveal">
+        <div class="container">
+            <div class="contact-card">
+                <h2>Keep in Touch!</h2>
+                <p style="margin-top: 10px; opacity: 0.9;">Mau main bareng atau diskusi projek? Yuk, hubungi aku!</p>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/rakaspace" target="_blank" rel="noopener" class="social-btn" title="Instagram"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://linkedin.com/in/rakaspace" target="_blank" rel="noopener" class="social-btn" title="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+                    <a href="mailto:raka@email.com" class="social-btn" title="Email"><i class="ph ph-envelope-simple"></i></a>
+                </div>
+            </div>
+            <div class="footer-note">
+                <p>Dibuat dengan semangat pelajar oleh Ferry.</p>
+                <p>&copy; 2025 Ferry's Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player Widget -->
+    <div class="music-player" onclick="toggleMusic(this)">
+        <div class="play-btn">
+            <i class="ph-fill ph-play-circle"></i>
+        </div>
+        <div class="song-info">
+            <span class="song-title">Dhruv</span>
+            <span style="font-size: 0.7rem;">Double take</span>
+        </div>
+        <div class="visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <audio id="bg-music" loop preload="none">
+            <source src="assets/audio/music2.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
