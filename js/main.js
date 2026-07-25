@@ -126,7 +126,7 @@ document.addEventListener('touchend', (event) => {
 // ===================================
 // TOUCH FEEDBACK FOR INTERACTIVE ELEMENTS
 // ===================================
-const touchElements = document.querySelectorAll('.cta-btn, .fav-chip, .hobby-card, .social-btn, .achievement-item, .polaroid');
+const touchElements = document.querySelectorAll('.cta-btn, .fav-chip, .hobby-card, .ngl-btn, .achievement-item, .polaroid');
 
 touchElements.forEach(el => {
     el.addEventListener('touchstart', function() {
