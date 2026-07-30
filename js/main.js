@@ -39,6 +39,42 @@ function toggleTheme() {
 })();
 
 // ===================================
+// INTERACTIVE MAP
+// ===================================
+(function initMap() {
+    const container = document.getElementById('map-container');
+    if (!container) return;
+
+    const marker = container.querySelector('.map-marker-group');
+    const land = container.querySelector('.map-land');
+    const pin = container.querySelector('.map-pin');
+    const tooltip = document.getElementById('map-tooltip');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (marker) marker.classList.add('visible');
+                if (land) land.classList.add('visible');
+                observer.unobserve(container);
+            }
+        });
+    }, { threshold: 0.3 });
+    observer.observe(container);
+
+    if (pin && tooltip) {
+        pin.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tooltip.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (tooltip.classList.contains('active') && !e.target.closest('.map-container')) {
+                tooltip.classList.remove('active');
+            }
+        });
+    }
+})();
+
+// ===================================
 // MOBILE MENU TOGGLE
 // ===================================
 function toggleMenu() {

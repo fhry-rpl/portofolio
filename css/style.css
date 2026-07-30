@@ -13,6 +13,12 @@
     --tape-color: rgba(255, 255, 255, 0.6);
     --font-main: 'Poppins', sans-serif;
     --font-hand: 'Patrick Hand', cursive;
+    --map-sea: #e8f4f8;
+    --map-land: #f0e6d3;
+    --map-detail: rgba(0,0,0,0.08);
+    --map-marker: #e74c3c;
+    --map-tooltip-bg: #fff;
+    --map-tooltip-text: #2d3436;
 }
 
 html[data-theme="dark"] {
@@ -25,6 +31,12 @@ html[data-theme="dark"] {
     --highlight: #00b894;
     --paper-shadow: 0 4px 15px rgba(0,0,0,0.4);
     --tape-color: rgba(255, 255, 255, 0.15);
+    --map-sea: #1a2a3a;
+    --map-land: #2d3a4a;
+    --map-detail: rgba(255,255,255,0.08);
+    --map-marker: #ff6b6b;
+    --map-tooltip-bg: #2d3436;
+    --map-tooltip-text: #dfe6e9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -322,61 +334,238 @@ html[data-theme="dark"] .cta-btn:hover {
 }
 
 /* ===================================
-   ABOUT SECTION
+   ABOUT SECTION — NEOBRUTALIST
    =================================== */
 #about { padding: 80px 0; }
 
-.about-card {
-    background: rgba(255,255,255,0.7);
-    border: 1px solid rgba(0,0,0,0.05);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: var(--paper-shadow);
-    display: flex;
-    gap: 40px;
-    align-items: center;
+.about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px;
+    align-items: start;
+}
+
+.about-img-block {
+    grid-row: 1 / 2;
     position: relative;
-    flex-wrap: wrap;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0 #000;
+    background: #fff;
+    padding: 12px;
+    transform: rotate(-2deg);
+    transition: transform 0.3s;
 }
 
-html[data-theme="dark"] .about-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
-
-.about-image {
-    max-width: 280px;
-    flex-shrink: 0;
+html[data-theme="dark"] .about-img-block {
+    background: #2d3436;
+    border-color: #636e72;
+    box-shadow: 6px 6px 0 #636e72;
 }
 
-.about-image img {
-    border-radius: 15px;
-    max-width: 100%;
-    box-shadow: var(--paper-shadow);
-    border: 5px solid white;
+.about-img-block img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-html[data-theme="dark"] .about-image img {
-    border-color: rgba(255,255,255,0.15);
-}
-
-.about-text { flex: 1; min-width: 280px; }
-.about-text p { margin-bottom: 15px; font-size: 1.1rem; }
-.about-text h3 { margin-bottom: 10px; }
-
-.fun-fact {
-    background: var(--accent);
-    color: #fff;
-    padding: 15px;
-    border-radius: 10px;
+.fun-fact-badge {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    background: #ffdd57;
+    color: #000;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 8px 14px;
     font-family: var(--font-hand);
-    font-size: 1.2rem;
-    transform: rotate(1deg);
-    display: inline-block;
-    margin-top: 20px;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    line-height: 1;
+    transform: rotate(3deg);
+    z-index: 2;
 }
 
-html[data-theme="dark"] .fun-fact {
+html[data-theme="dark"] .fun-fact-badge {
     background: var(--primary);
     color: #fff;
+    border-color: #dfe6e9;
+    box-shadow: 4px 4px 0 #dfe6e9;
+}
+
+.fun-fact-badge i {
+    margin-right: 4px;
+}
+
+.about-text-block {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0 #000;
+    background: #fff;
+    padding: 28px;
+}
+
+html[data-theme="dark"] .about-text-block {
+    background: #2d3436;
+    border-color: #636e72;
+    box-shadow: 6px 6px 0 #636e72;
+}
+
+.about-text-block p {
+    margin-bottom: 14px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.about-text-block h3 {
+    margin-bottom: 12px;
+    font-size: 1.6rem;
+}
+
+.about-map-block {
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0 #000;
+    background: #fff;
+    padding: 20px;
+}
+
+html[data-theme="dark"] .about-map-block {
+    background: #2d3436;
+    border-color: #636e72;
+    box-shadow: 6px 6px 0 #636e72;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.map-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.map-land {
+    fill: var(--map-land);
+    stroke: var(--map-detail);
+    stroke-width: 1.5;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    transition: stroke-dashoffset 1.5s ease-out;
+}
+
+.map-land.visible {
+    stroke-dashoffset: 0;
+}
+
+.map-detail {
+    fill: none;
+    stroke: var(--map-detail);
+    stroke-width: 1;
+    stroke-dasharray: 3,3;
+}
+
+.map-label {
+    fill: var(--text-light);
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.map-label-sm {
+    font-size: 9px;
+    opacity: 0.5;
+}
+
+.map-marker-group {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.5s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.map-marker-group.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.map-pulse {
+    fill: var(--map-marker);
+    opacity: 0.3;
+    transform-origin: center;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { r: 8; opacity: 0.3; }
+    50% { r: 16; opacity: 0; }
+    100% { r: 8; opacity: 0.3; }
+}
+
+.map-pin {
+    fill: var(--map-marker);
+    stroke: white;
+    stroke-width: 1;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.map-pin:hover {
+    transform: scale(1.15);
+    transform-origin: center;
+}
+
+.map-pin-dot {
+    fill: white;
+    pointer-events: none;
+}
+
+.map-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: var(--map-tooltip-bg);
+    color: var(--map-tooltip-text);
+    padding: 10px 16px;
+    box-shadow: 4px 4px 0 #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+html[data-theme="dark"] .map-tooltip {
+    box-shadow: 4px 4px 0 #636e72;
+}
+
+.map-tooltip.active {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+}
+
+.map-tooltip p {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.map-tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top-color: var(--map-tooltip-bg);
 }
 
 /* ===================================
@@ -1022,7 +1211,13 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
 @media (max-width: 1024px) {
     .hero-title { font-size: 3rem; }
     .section-title { font-size: 2.2rem; }
-    .about-card { padding: 30px; gap: 30px; }
+    .about-grid { gap: 20px; }
+    .about-img-block { max-width: 240px; }
+    header { padding: 14px 20px; }
+    .map-container { max-width: 100%; }
+    .hobbies-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .achievement-list { gap: 15px; }
+    .gallery-grid { gap: 15px; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1091,37 +1286,10 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     
     .mobile-menu-btn { display: block; }
     
-    .about-card { 
-        flex-direction: column; 
-        text-align: left;
-        padding: 20px;
-        gap: 20px;
-    }
-
-    .about-image {
-        text-align: center;
-    }
-
-    .about-image img {
-        max-width: 250px;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .about-text {
-        min-width: 0;
-    }
-
-    .about-text h3 {
-        text-align: center;
-    }
-
-    .fun-fact {
-        display: block;
-        text-align: center;
-        width: 100%;
-        transform: rotate(0);
-    }
+    .about-grid { grid-template-columns: 1fr; gap: 20px; }
+    .about-img-block { transform: rotate(0); max-width: 280px; margin: 0 auto; }
+    .about-img-block img { max-width: 100%; display: block; }
+    .about-text-block { grid-column: 1 / -1; }
     
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1176,6 +1344,10 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         padding: 12px 30px;
         font-size: 1rem;
     }
+
+    .map-container {
+        max-width: 100%;
+    }
     
     .music-player {
         bottom: 15px;
@@ -1183,6 +1355,13 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         padding: 8px 12px;
         gap: 8px;
         max-width: calc(100vw - 30px);
+    }
+
+    @supports (padding: env(safe-area-inset-top)) {
+        .music-player {
+            bottom: calc(15px + env(safe-area-inset-bottom));
+            right: calc(15px + env(safe-area-inset-right));
+        }
     }
 }
 
@@ -1265,6 +1444,27 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         bottom: 15px;
         right: 15px;
     }
+
+    .map-tooltip {
+        white-space: normal;
+        max-width: 180px;
+        font-size: 0.85rem;
+    }
+
+    .map-tooltip::after {
+        left: 50%;
+    }
+
+    .fun-fact-badge {
+        position: static;
+        display: inline-block;
+        margin-top: 10px;
+        transform: rotate(0);
+    }
+
+    .about-img-block {
+        padding-bottom: 20px;
+    }
 }
 
 /* ===================================
@@ -1288,7 +1488,7 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         margin-bottom: 2rem;
     }
     
-    .about-card,
+    .about-grid,
     .hobbies-grid,
     .achievement-list,
     .gallery-grid {
@@ -1383,15 +1583,6 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     }
 }
 
-@media (max-width: 768px) {
-    @supports (padding: env(safe-area-inset-top)) {
-        .music-player {
-            bottom: calc(15px + env(safe-area-inset-bottom));
-            right: calc(15px + env(safe-area-inset-right));
-        }
-    }
-}
-
 /* ===================================
    TOUCH DEVICES
    =================================== */
@@ -1454,6 +1645,11 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     .fav-chip {
         min-height: 44px;
         padding: 10px 20px;
+    }
+
+    .map-tooltip {
+        white-space: normal;
+        max-width: 200px;
     }
 }
 
