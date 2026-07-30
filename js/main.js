@@ -11,7 +11,7 @@ function toggleTheme() {
     const icon = document.getElementById('theme-icon');
     
     if (root.getAttribute('data-theme') === 'dark') {
-        root.removeAttribute('data-theme');
+        root.setAttribute('data-theme', 'light');
         icon.classList.remove('ph-sun');
         icon.classList.add('ph-moon');
         localStorage.setItem('theme', 'light');
@@ -24,6 +24,21 @@ function toggleTheme() {
 }
 
 // ===================================
+// TIME-BASED GREETING
+// ===================================
+(function setGreeting() {
+    const el = document.getElementById('greeting');
+    if (!el) return;
+    const hour = new Date().getHours();
+    let msg;
+    if (hour >= 5 && hour < 11) msg = 'Selamat pagi! Aku Ferry,';
+    else if (hour >= 11 && hour < 15) msg = 'Selamat siang! Aku Ferry,';
+    else if (hour >= 15 && hour < 18) msg = 'Selamat sore! Aku Ferry,';
+    else msg = 'Selamat malam! Aku Ferry,';
+    el.textContent = msg;
+})();
+
+// ===================================
 // MOBILE MENU TOGGLE
 // ===================================
 function toggleMenu() {
@@ -32,12 +47,61 @@ function toggleMenu() {
 }
 
 // ===================================
-// MUSIC PLAYER TOGGLE
+// MUSIC PLAYER — PLAYLIST & CONTROLS
 // ===================================
+const playlist = [
+    { title: 'Double Take', artist: 'Dhruv', file: 'assets/audio/music2.mp3' },
+];
+
+let currentTrack = 0;
+let isShuffled = false;
+let isLooping = false;
+
+function getAudio() { return document.getElementById('bg-music'); }
+
+function getPlayIcon() { return document.querySelector('.play-btn i'); }
+
+function getBars() { return document.querySelectorAll('.bar'); }
+
+function updateSongInfo() {
+    const track = playlist[currentTrack];
+    document.querySelector('.song-title').textContent = track.title;
+    document.querySelector('.song-artist').textContent = track.artist;
+}
+
+function loadTrack(index) {
+    const audio = getAudio();
+    const track = playlist[index];
+    audio.querySelector('source').src = track.file;
+    audio.load();
+    currentTrack = index;
+    updateSongInfo();
+}
+
+function playCurrent() {
+    const audio = getAudio();
+    const icon = getPlayIcon();
+    const bars = getBars();
+    icon.classList.remove('ph-play-circle');
+    icon.classList.add('ph-pause-circle');
+    bars.forEach(bar => bar.style.animationPlayState = 'running');
+    audio.play().catch(() => {});
+}
+
+function pauseCurrent() {
+    const audio = getAudio();
+    const icon = getPlayIcon();
+    const bars = getBars();
+    icon.classList.remove('ph-pause-circle');
+    icon.classList.add('ph-play-circle');
+    bars.forEach(bar => bar.style.animationPlayState = 'paused');
+    audio.pause();
+}
+
 function toggleMusic(btn) {
-    const icon = btn.querySelector('.play-btn i');
-    const audio = document.getElementById('bg-music');
-    const bars = document.querySelectorAll('.bar');
+    const icon = btn.querySelector('i');
+    const audio = getAudio();
+    const bars = getBars();
     
     if (icon.classList.contains('ph-play-circle')) {
         icon.classList.remove('ph-play-circle');
@@ -51,6 +115,90 @@ function toggleMusic(btn) {
         audio.pause();
     }
 }
+
+function nextTrack() {
+    if (isShuffled) {
+        let next;
+        do { next = Math.floor(Math.random() * playlist.length); }
+        while (next === currentTrack && playlist.length > 1);
+        loadTrack(next);
+    } else {
+        loadTrack((currentTrack + 1) % playlist.length);
+    }
+    if (isLooping || isPlaying()) playCurrent();
+}
+
+function prevTrack() {
+    if (isShuffled) {
+        let prev;
+        do { prev = Math.floor(Math.random() * playlist.length); }
+        while (prev === currentTrack && playlist.length > 1);
+        loadTrack(prev);
+    } else {
+        loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
+    }
+    if (isLooping || isPlaying()) playCurrent();
+}
+
+function isPlaying() {
+    const icon = getPlayIcon();
+    return icon.classList.contains('ph-pause-circle');
+}
+
+function toggleShuffle() {
+    isShuffled = !isShuffled;
+    document.querySelector('.shuffle-btn').classList.toggle('active');
+}
+
+function toggleLoop() {
+    isLooping = !isLooping;
+    document.querySelector('.loop-btn').classList.toggle('active');
+    getAudio().loop = isLooping;
+}
+
+getAudio().addEventListener('ended', () => {
+    if (isLooping) {
+        playCurrent();
+    } else if (currentTrack < playlist.length - 1) {
+        nextTrack();
+    } else {
+        pauseCurrent();
+        loadTrack(0);
+    }
+});
+
+// ===================================
+// KEYBOARD SHORTCUTS
+// ===================================
+document.addEventListener('keydown', (e) => {
+    const tag = document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+    switch (e.code) {
+        case 'Space':
+            e.preventDefault();
+            toggleMusic(document.querySelector('.play-btn'));
+            break;
+        case 'ArrowRight':
+            e.preventDefault();
+            nextTrack();
+            break;
+        case 'ArrowLeft':
+            e.preventDefault();
+            prevTrack();
+            break;
+        case 'ArrowUp':
+            e.preventDefault();
+            const audio = getAudio();
+            audio.volume = Math.min(1, audio.volume + 0.1);
+            break;
+        case 'ArrowDown':
+            e.preventDefault();
+            const audio2 = getAudio();
+            audio2.volume = Math.max(0, audio2.volume - 0.1);
+            break;
+    }
+});
 
 // ===================================
 // SCROLL REVEAL ANIMATION
@@ -126,7 +274,7 @@ document.addEventListener('touchend', (event) => {
 // ===================================
 // TOUCH FEEDBACK FOR INTERACTIVE ELEMENTS
 // ===================================
-const touchElements = document.querySelectorAll('.cta-btn, .fav-chip, .hobby-card, .ngl-btn, .achievement-item, .polaroid');
+const touchElements = document.querySelectorAll('.cta-btn, .fav-chip, .hobby-card, .ngl-btn, .ctrl-btn, .play-btn, .achievement-item, .polaroid, .film-polaroid');
 
 touchElements.forEach(el => {
     el.addEventListener('touchstart', function() {

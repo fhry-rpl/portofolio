@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Portofolio pribadi Ferry - Siswa SMK yang kreatif dan berasal dari parung panjang>
+    <meta name="description" content="Portofolio pribadi Ferry - Siswa SMK yang kreatif dan berasal dari parung panjang">
     <meta name="keywords" content="portofolio, web design, siswa SMK, Parung panjang, kreatif">
     <meta name="author" content="Ferry">
     <meta name="robots" content="index, follow">
@@ -36,7 +36,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark')}</script>
+    <script>var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark')}else if(t==='light'){document.documentElement.setAttribute('data-theme','light')}</script>
 </head>
 <body>
 
@@ -85,7 +85,7 @@
                     <img src="assets/images/about/handsome.jpg" alt="Ferry" loading="lazy">
                 </div>
                 <div class="about-text">
-                    <h3 class="handwritten">Siswa SMK dengan semangat tinggi!</h3>
+                    <h3 class="handwritten" id="greeting">Siswa SMK dengan semangat tinggi!</h3>
                     <p>Hai! Aku Ferry, Aku dari SMK Bina Putra Mandiri Parung Panjang, Kab.Bogor, jurusan RPL. Aku suka belajar pemrograman, editing, dan mencoba teknologi baru. </p>
                     <p>Terus belajar, terus berkembang, dan jangan pernah berhenti mencoba hal baru.</p>
                     <div class="fun-fact">
@@ -347,20 +347,32 @@
     </section>
 
     <!-- Music Player Widget -->
-    <div class="music-player" onclick="toggleMusic(this)">
-        <div class="play-btn">
+    <div class="music-player">
+        <button class="ctrl-btn prev-btn" onclick="prevTrack()" title="Sebelumnya" aria-label="Lagu sebelumnya">
+            <i class="ph ph-skip-back"></i>
+        </button>
+        <button class="ctrl-btn shuffle-btn" onclick="toggleShuffle()" title="Acak" aria-label="Acak lagu">
+            <i class="ph ph-shuffle"></i>
+        </button>
+        <div class="play-btn" onclick="toggleMusic(this)">
             <i class="ph-fill ph-play-circle"></i>
         </div>
+        <button class="ctrl-btn next-btn" onclick="nextTrack()" title="Selanjutnya" aria-label="Lagu selanjutnya">
+            <i class="ph ph-skip-forward"></i>
+        </button>
+        <button class="ctrl-btn loop-btn" onclick="toggleLoop()" title="Ulangi" aria-label="Ulangi lagu">
+            <i class="ph ph-repeat"></i>
+        </button>
         <div class="song-info">
-            <span class="song-title">Dhruv</span>
-            <span style="font-size: 0.7rem;">Double take</span>
+            <span class="song-title">Double Take</span>
+            <span class="song-artist">Dhruv</span>
         </div>
         <div class="visualizer">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-        <audio id="bg-music" loop preload="none">
+        <audio id="bg-music" preload="metadata">
             <source src="assets/audio/music2.mp3" type="audio/mpeg">
         </audio>
     </div>
