@@ -1286,11 +1286,29 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     
     .mobile-menu-btn { display: block; }
     
-    .about-grid { grid-template-columns: 1fr; gap: 16px; }
-    .about-img-block { transform: rotate(0); max-width: none; margin: 0; padding: 10px; }
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        border: 2px solid #000;
+        box-shadow: 4px 4px 0 #000;
+        background: #fff;
+        padding: 16px;
+    }
+    html[data-theme="dark"] .about-grid {
+        background: #2d3436;
+        border-color: #636e72;
+        box-shadow: 4px 4px 0 #636e72;
+    }
+    .about-img-block { transform: rotate(0); max-width: none; margin: 0; padding: 0; border: none; box-shadow: none; background: transparent; }
+    html[data-theme="dark"] .about-img-block { border: none; box-shadow: none; background: transparent; }
     .about-img-block img { max-width: 100%; display: block; }
-    .about-text-block { grid-column: 1 / -1; padding: 20px; }
-    .about-map-block { padding: 14px; }
+    .about-text-block { grid-column: 1 / -1; padding: 0; border: none; box-shadow: none; background: transparent; }
+    html[data-theme="dark"] .about-text-block { border: none; box-shadow: none; background: transparent; }
+    .about-map-block { padding: 0; border: none; box-shadow: none; background: transparent; }
+    html[data-theme="dark"] .about-map-block { border: none; box-shadow: none; background: transparent; }
+    .fun-fact-badge { position: static; display: inline-block; margin-top: 12px; transform: rotate(0); box-shadow: 3px 3px 0 #000; }
+    html[data-theme="dark"] .fun-fact-badge { box-shadow: 3px 3px 0 #636e72; }
+    .fun-fact-badge i { margin-right: 4px; }
     
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1353,8 +1371,8 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     .music-player {
         bottom: 15px;
         right: 15px;
-        padding: 8px 12px;
-        gap: 6px;
+        padding: 6px 8px;
+        gap: 4px;
         max-width: calc(100vw - 30px);
     }
 
@@ -1362,14 +1380,24 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         display: none;
     }
 
-    .song-info {
-        flex-direction: row;
-        gap: 4px;
-        padding: 0 4px;
+    .shuffle-btn,
+    .loop-btn {
+        display: none;
     }
 
-    .song-artist::before {
-        content: "— ";
+    .song-info {
+        display: none;
+    }
+
+    .ctrl-btn {
+        font-size: 0.85rem;
+        padding: 3px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    .play-btn {
+        font-size: 1.1rem;
     }
 
     @supports (padding: env(safe-area-inset-top)) {
@@ -1458,8 +1486,8 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     .music-player {
         bottom: 15px;
         right: 15px;
-        gap: 4px;
-        padding: 6px 10px;
+        gap: 2px;
+        padding: 4px 6px;
     }
 
     .shuffle-btn,
@@ -1468,18 +1496,18 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     }
 
     .ctrl-btn {
-        font-size: 1rem;
-        padding: 4px;
-        min-width: 36px;
-        min-height: 36px;
+        font-size: 0.8rem;
+        padding: 2px;
+        min-width: 26px;
+        min-height: 26px;
     }
 
     .play-btn {
-        font-size: 1.2rem;
+        font-size: 0.95rem;
     }
 
     .song-info {
-        font-size: 0.7rem;
+        display: none;
     }
 
     .map-tooltip {
@@ -1495,12 +1523,32 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     .fun-fact-badge {
         font-size: 0.85rem;
         padding: 6px 10px;
-        bottom: -10px;
-        right: -10px;
+    }
+
+    .about-grid {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+    }
+
+    html[data-theme="dark"] .about-grid {
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 
     .about-text-block {
-        padding: 14px;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    html[data-theme="dark"] .about-text-block {
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 
     .about-text-block p {
@@ -1508,11 +1556,29 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     }
 
     .about-img-block {
-        padding: 8px;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    html[data-theme="dark"] .about-img-block {
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 
     .about-map-block {
-        padding: 10px;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    html[data-theme="dark"] .about-map-block {
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 }
 
