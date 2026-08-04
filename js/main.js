@@ -79,7 +79,9 @@ function toggleTheme() {
 // ===================================
 function toggleMenu() {
     const nav = document.getElementById('navbar');
-    nav.classList.toggle('active');
+    const btn = document.querySelector('.mobile-menu-btn');
+    const isOpen = nav.classList.toggle('active');
+    if (btn) btn.setAttribute('aria-expanded', isOpen);
 }
 
 // ===================================
@@ -211,6 +213,11 @@ document.addEventListener('keydown', (e) => {
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
     switch (e.code) {
+        case 'Escape': {
+            const menuNav = document.getElementById('navbar');
+            if (menuNav.classList.contains('active')) toggleMenu();
+            break;
+        }
         case 'Space':
             e.preventDefault();
             toggleMusic(document.querySelector('.play-btn'));
@@ -241,20 +248,16 @@ document.addEventListener('keydown', (e) => {
 // ===================================
 const revealElements = document.querySelectorAll('.reveal');
 
-const revealOnScroll = () => {
-    const windowHeight = window.innerHeight;
-    const elementVisible = 150;
-
-    revealElements.forEach((reveal) => {
-        const elementTop = reveal.getBoundingClientRect().top;
-        if (elementTop < windowHeight - elementVisible) {
-            reveal.classList.add('active');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
         }
     });
-};
+}, { threshold: 0.1 });
 
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
+revealElements.forEach(el => revealObserver.observe(el));
 
 // ===================================
 // CLOSE MOBILE MENU ON LINK CLICK
@@ -360,9 +363,3 @@ if (!('loading' in HTMLImageElement.prototype)) {
     });
     lazyImages.forEach(img => imageObserver.observe(img));
 }
-
-// ===================================
-// PERFORMANCE - PASSIVE EVENT LISTENERS
-// ===================================
-window.addEventListener('scroll', () => {}, { passive: true });
-window.addEventListener('resize', () => {}, { passive: true });
