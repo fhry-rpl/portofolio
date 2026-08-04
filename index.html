@@ -403,10 +403,18 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
+        <button class="ctrl-btn close-btn" onclick="closeMusicPlayer()" title="Tutup" aria-label="Tutup pemutar musik">
+            <i class="ph ph-x"></i>
+        </button>
         <audio id="bg-music" preload="metadata">
             <source src="assets/audio/music2.mp3" type="audio/mpeg">
         </audio>
     </div>
+
+    <!-- Reopen Music FAB -->
+    <button class="music-reopen" onclick="reopenMusicPlayer()" aria-label="Buka pemutar musik" title="Buka musik">
+        <i class="ph-fill ph-music-notes"></i>
+    </button>
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>

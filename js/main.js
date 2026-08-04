@@ -194,6 +194,21 @@ function toggleLoop() {
     getAudio().loop = isLooping;
 }
 
+let playerClosed = false;
+
+function closeMusicPlayer() {
+    pauseCurrent();
+    playerClosed = true;
+    document.querySelector('.music-player').classList.add('hidden');
+    document.querySelector('.music-reopen').classList.add('show');
+}
+
+function reopenMusicPlayer() {
+    playerClosed = false;
+    document.querySelector('.music-player').classList.remove('hidden');
+    document.querySelector('.music-reopen').classList.remove('show');
+}
+
 getAudio().addEventListener('ended', () => {
     if (isLooping) {
         playCurrent();
@@ -211,6 +226,7 @@ getAudio().addEventListener('ended', () => {
 document.addEventListener('keydown', (e) => {
     const tag = document.activeElement.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (playerClosed && e.code !== 'Escape') return;
 
     switch (e.code) {
         case 'Escape': {

@@ -1119,7 +1119,13 @@ html[data-theme="dark"] .ngl-btn:hover {
     box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     z-index: 999;
     animation: slideIn 1s ease-out 2s backwards;
-    transition: bottom 0.3s, right 0.3s;
+    transition: bottom 0.3s, right 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+.music-player.hidden {
+    opacity: 0;
+    transform: translateY(120%);
+    pointer-events: none;
 }
 
 html[data-theme="dark"] .music-player { background: #2d3436; }
@@ -1191,6 +1197,44 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
 
 .bar:nth-child(2) { animation-delay: 0.2s; }
 .bar:nth-child(3) { animation-delay: 0.4s; }
+
+.close-btn {
+    display: none;
+}
+
+.music-reopen {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(74, 163, 223, 0.4);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.music-reopen.show {
+    display: flex;
+    animation: slideIn 0.4s ease-out backwards;
+}
+
+.music-reopen:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(74, 163, 223, 0.5);
+}
+
+.music-reopen:active {
+    transform: scale(0.92);
+}
 
 /* ===================================
    KEYFRAMES & ANIMATIONS
@@ -1463,6 +1507,19 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
 
     .song-artist {
         font-size: 0.72rem;
+    }
+
+    .close-btn {
+        display: flex;
+        font-size: 0.95rem;
+        min-width: 34px;
+        min-height: 34px;
+        flex-shrink: 0;
+    }
+
+    .music-reopen {
+        bottom: calc(15px + env(safe-area-inset-bottom));
+        right: calc(15px + env(safe-area-inset-right));
     }
 
     .ctrl-btn {
