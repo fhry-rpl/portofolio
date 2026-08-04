@@ -1435,7 +1435,8 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     }
 
     .song-info {
-        display: none;
+        display: flex;
+        max-width: 42vw;
     }
 
     .ctrl-btn {
@@ -1556,7 +1557,8 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
     }
 
     .song-info {
-        display: none;
+        display: flex;
+        max-width: 40vw;
     }
 
     .map-tooltip {
