@@ -406,3 +406,107 @@ if (!('loading' in HTMLImageElement.prototype)) {
     });
     lazyImages.forEach(img => imageObserver.observe(img));
 }
+
+// ===================================
+// LIGHTBOX — TOUCH CONTENT
+// ===================================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+let lightboxIndex = 0;
+
+const galleryPhotos = [...document.querySelectorAll('.polaroid img')].map(img => ({
+    src: img.getAttribute('src'),
+    caption: (img.closest('.polaroid').querySelector('.polaroid-caption') || {}).textContent || img.alt || ''
+}));
+
+const filmPhotos = [...document.querySelectorAll('.film-polaroid .flip-front img')].map(img => {
+    const card = img.closest('.film-polaroid');
+    let caption = img.alt || '';
+    const capEl = card.querySelector('.film-polaroid-caption');
+    if (capEl) {
+        const title = capEl.querySelector('.film-polaroid-title');
+        const year = capEl.querySelector('.film-year');
+        if (title) {
+            caption = title.textContent.trim();
+            if (year) caption += ' (' + year.textContent.trim() + ')';
+        } else {
+            caption = capEl.textContent.trim();
+        }
+    }
+    return { src: img.getAttribute('src'), caption };
+});
+
+const photoCollection = [...galleryPhotos, ...filmPhotos];
+
+function openLightbox(index) {
+    const total = photoCollection.length;
+    if (!total) return;
+    lightboxIndex = ((index % total) + total) % total;
+    const item = photoCollection[lightboxIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.caption;
+    lightboxCaption.textContent = item.caption;
+    if (!lightbox.open) lightbox.showModal();
+    document.getElementById('lightbox-close').focus();
+}
+
+document.querySelectorAll('.polaroid img').forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(i));
+});
+
+document.querySelectorAll('.flip-photo-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = photoCollection.findIndex(p => p.src === btn.dataset.src);
+        openLightbox(idx >= 0 ? idx : 0);
+    });
+});
+
+document.getElementById('lightbox-next').addEventListener('click', () => openLightbox(lightboxIndex + 1));
+document.getElementById('lightbox-prev').addEventListener('click', () => openLightbox(lightboxIndex - 1));
+document.getElementById('lightbox-close').addEventListener('click', () => lightbox.close());
+
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.close();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (!lightbox.open) return;
+    if (e.key === 'Escape') {
+        lightbox.close();
+        return;
+    }
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        openLightbox(lightboxIndex - 1);
+    }
+    if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        openLightbox(lightboxIndex + 1);
+    }
+});
+
+let lightboxTouchX = null;
+lightbox.addEventListener('touchstart', (e) => {
+    lightboxTouchX = e.touches[0].clientX;
+}, { passive: true });
+
+lightbox.addEventListener('touchend', (e) => {
+    if (lightboxTouchX === null) return;
+    const dx = e.changedTouches[0].clientX - lightboxTouchX;
+    if (Math.abs(dx) > 40) {
+        openLightbox(lightboxIndex + (dx < 0 ? 1 : -1));
+    }
+    lightboxTouchX = null;
+}, { passive: true });
+
+// ===================================
+// FLIP CARD — TOUCH CONTENT (Film & Anime)
+// ===================================
+document.querySelectorAll('.film-polaroid').forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('.flip-photo-btn')) return;
+        card.classList.toggle('flipped');
+    });
+});

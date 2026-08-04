@@ -1020,6 +1020,236 @@ html[data-theme="dark"] .film-year {
     color: #B8926E;
 }
 
+.film-polaroid {
+    perspective: 1200px;
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.film-polaroid.flipped .flip-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flip-front {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.flip-hint {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.68rem;
+    color: var(--text-light);
+    opacity: 0.75;
+    font-style: italic;
+    letter-spacing: 0.4px;
+}
+
+.flip-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 18px;
+    text-align: center;
+    background: linear-gradient(160deg, #FFFDF4, #FFF6E3);
+    border-radius: 2px;
+}
+
+html[data-theme="dark"] .flip-back {
+    background: linear-gradient(160deg, #2d3436, #26323c);
+}
+
+.flip-back-title {
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.flip-back-genre {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.flip-back-rating {
+    font-size: 1rem;
+    color: #F5B041;
+    letter-spacing: 3px;
+}
+
+.flip-back-trivia {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 240px;
+}
+
+.flip-photo-btn {
+    margin-top: 4px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.flip-photo-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent);
+}
+
+.flip-photo-btn:active {
+    transform: scale(0.92);
+}
+
+/* ===================================
+   LIGHTBOX — TOUCH CONTENT
+   =================================== */
+#lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+}
+
+#lightbox::backdrop {
+    background: rgba(10, 12, 15, 0.85);
+    backdrop-filter: blur(6px);
+}
+
+.lightbox-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 12px;
+}
+
+.lightbox-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 88vw;
+    margin: 0;
+}
+
+#lightbox-img {
+    max-width: 88vw;
+    max-height: 74vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.55);
+    background: #0d0f12;
+}
+
+#lightbox-caption {
+    font-family: var(--font-hand);
+    font-size: 1.3rem;
+    color: #fff;
+    text-align: center;
+}
+
+.lightbox-nav {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.08);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -52px;
+    right: 4px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 480px) {
+    .lightbox-content {
+        gap: 6px;
+        padding: 0 8px;
+    }
+
+    .lightbox-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1.05rem;
+    }
+
+    #lightbox-img {
+        max-width: calc(100vw - 100px);
+    }
+
+    #lightbox-caption {
+        font-size: 1.05rem;
+    }
+}
+
 @media (min-width: 769px) {
     .film-grid-polaroid {
         flex-direction: row;
@@ -2032,6 +2262,10 @@ nav a:focus {
     .song-title.marquee-anim .marquee,
     .song-artist.marquee-anim .marquee {
         animation: none !important;
+    }
+
+    .film-polaroid .flip-inner {
+        transition: none;
     }
 
     .marquee-copy:nth-child(2) {
