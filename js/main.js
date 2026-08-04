@@ -103,9 +103,34 @@ function getBars() { return document.querySelectorAll('.bar'); }
 
 function updateSongInfo() {
     const track = playlist[currentTrack];
-    document.querySelector('.song-title').textContent = track.title;
-    document.querySelector('.song-artist').textContent = track.artist;
+    setMarqueeText(document.querySelector('.song-title'), track.title);
+    setMarqueeText(document.querySelector('.song-artist'), track.artist);
 }
+
+function setMarqueeText(el, text) {
+    if (!el) return;
+    el.querySelectorAll('.marquee-copy').forEach(copy => copy.textContent = text);
+    applyMarquee(el);
+}
+
+function applyMarquee(el) {
+    if (!el) return;
+    const copy = el.querySelector('.marquee-copy');
+    const overflow = copy && copy.scrollWidth > el.clientWidth;
+    el.classList.toggle('marquee-anim', overflow);
+    if (overflow) {
+        const dur = Math.max(6, Math.min(24, copy.scrollWidth / 24));
+        el.style.setProperty('--marquee-dur', dur.toFixed(1) + 's');
+    }
+}
+
+let marqueeResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(marqueeResizeTimer);
+    marqueeResizeTimer = setTimeout(() => {
+        document.querySelectorAll('.song-title, .song-artist').forEach(applyMarquee);
+    }, 150);
+}, { passive: true });
 
 function loadTrack(index) {
     const audio = getAudio();
@@ -219,6 +244,8 @@ getAudio().addEventListener('ended', () => {
         loadTrack(0);
     }
 });
+
+document.querySelectorAll('.song-title, .song-artist').forEach(applyMarquee);
 
 // ===================================
 // KEYBOARD SHORTCUTS
