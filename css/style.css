@@ -1350,7 +1350,7 @@ html[data-theme="dark"] .music-player { background: #2d3436; }
         box-shadow: 4px 4px 0 #636e72;
     }
     .about-img-block { transform: rotate(0); max-width: none; margin: 0; padding: 0; align-self: stretch; }
-    .about-img-block img { display: block; max-width: none; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin: 0; }
+    .about-img-block img { display: block; max-width: none; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; margin: 0; }
     .about-text-block { grid-column: 1; grid-row: auto; padding: 60px 16px 12px; min-width: 0; overflow-wrap: break-word; border-left: none; border-top: 2px dashed rgba(0,0,0,0.12); }
     html[data-theme="dark"] .about-text-block { border-top-color: rgba(255,255,255,0.12); }
     .about-map-block { grid-column: 1; grid-row: auto; padding: 14px 16px 18px; border-left: none; border-top: 2px dashed rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; }
