@@ -6,7 +6,14 @@
 // ===================================
 // DARK MODE TOGGLE
 // ===================================
+let themeToggling = false;
+
 function toggleTheme() {
+    if (themeToggling) return;
+    themeToggling = true;
+
+    document.documentElement.classList.add('theme-transition');
+
     const root = document.documentElement;
     const icon = document.getElementById('theme-icon');
     
@@ -21,6 +28,11 @@ function toggleTheme() {
         icon.classList.add('ph-sun');
         localStorage.setItem('theme', 'dark');
     }
+
+    setTimeout(() => {
+        document.documentElement.classList.remove('theme-transition');
+        themeToggling = false;
+    }, 350);
 }
 
 // ===================================
@@ -155,10 +167,10 @@ function pauseCurrent() {
     const audio = getAudio();
     const icon = getPlayIcon();
     const bars = getBars();
-    icon.classList.remove('ph-pause-circle');
-    icon.classList.add('ph-play-circle');
-    bars.forEach(bar => bar.style.animationPlayState = 'paused');
-    audio.pause();
+    icon?.classList.remove('ph-pause-circle');
+    icon?.classList.add('ph-play-circle');
+    bars?.forEach(bar => bar.style.animationPlayState = 'paused');
+    audio?.pause();
 }
 
 function toggleMusic(btn) {
@@ -222,7 +234,6 @@ function toggleLoop() {
 let playerClosed = false;
 
 function closeMusicPlayer() {
-    pauseCurrent();
     playerClosed = true;
     document.querySelector('.music-player').classList.add('hidden');
     document.querySelector('.music-reopen').classList.add('show');
@@ -420,7 +431,7 @@ const galleryPhotos = [...document.querySelectorAll('.polaroid img')].map(img =>
     caption: (img.closest('.polaroid').querySelector('.polaroid-caption') || {}).textContent || img.alt || ''
 }));
 
-const filmPhotos = [...document.querySelectorAll('.film-polaroid .flip-front img')].map(img => {
+const filmPhotos = [...document.querySelectorAll('.film-polaroid .film-polaroid-img img')].map(img => {
     const card = img.closest('.film-polaroid');
     let caption = img.alt || '';
     const capEl = card.querySelector('.film-polaroid-caption');
@@ -455,13 +466,7 @@ document.querySelectorAll('.polaroid img').forEach((img, i) => {
     img.addEventListener('click', () => openLightbox(i));
 });
 
-document.querySelectorAll('.flip-photo-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const idx = photoCollection.findIndex(p => p.src === btn.dataset.src);
-        openLightbox(idx >= 0 ? idx : 0);
-    });
-});
+
 
 document.getElementById('lightbox-next').addEventListener('click', () => openLightbox(lightboxIndex + 1));
 document.getElementById('lightbox-prev').addEventListener('click', () => openLightbox(lightboxIndex - 1));
@@ -501,12 +506,4 @@ lightbox.addEventListener('touchend', (e) => {
     lightboxTouchX = null;
 }, { passive: true });
 
-// ===================================
-// FLIP CARD — TOUCH CONTENT (Film & Anime)
-// ===================================
-document.querySelectorAll('.film-polaroid').forEach(card => {
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('.flip-photo-btn')) return;
-        card.classList.toggle('flipped');
-    });
-});
+
